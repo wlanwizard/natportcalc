@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NAT Session Calculator</title>
+</head>
+<body>
+  <h2>NAT Session Calculator</h2>
+
+  <label>
+    Egress IPs:
+    <input type="number" id="egress" value="1" min="1">
+  </label><br><br>
+
+  <label>
+    Destination IPs:
+    <input type="range" id="destip" min="1" max="1000" value="1" oninput="updateDestIP(this.value)">
+    <span id="destipVal">1</span>
+  </label><br><br>
+
+  <label>
+    Destination Ports:
+    <input type="number" id="port" value="1" min="1">
+  </label><br><br>
+
+  <button onclick="calculate()">Calculate Max NAT Sessions</button>
+
+  <h3 id="result">Max NAT sessions: </h3>
+
+  <script>
+    const SOURCE_PORTS = 65536;
+
+    function updateDestIP(val) {
+      document.getElementById("destipVal").textContent = val;
+    }
+
+    function calculate() {
+      const egress = parseInt(document.getElementById("egress").value);
+      const destips = parseInt(document.getElementById("destip").value);
+      const ports = parseInt(document.getElementById("port").value);
+      const result = egress * SOURCE_PORTS * destips * ports;
+      document.getElementById("result").textContent = `Max NAT sessions: ${result.toLocaleString()}`;
+    }
+  </script>
+</body>
+</html>
