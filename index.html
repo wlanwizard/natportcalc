@@ -2,7 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>NAT Session Calculator</title>
+  <title>NAT Session Calculator for Secure Access Planning - V1 6/12/2025</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    label {
+      display: block;
+      margin: 20px 0 10px;
+      font-weight: 600;
+    }
+
+    input[type="number"],
+    input[type="text"],
+    input[type="range"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 4px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    input[type="range"] {
+      background: #eee;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 12px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    #result {
+      margin-top: 30px;
+      font-size: 20px;
+      text-align: center;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .slider-value {
+      font-weight: 500;
+      float: right;
+    }
+  </style>
 </head>
 <body>
   <h2>NAT Session Calculator</h2>
@@ -10,27 +76,27 @@
   <label>
     Egress IPs:
     <input type="number" id="egress" value="1" min="1">
-  </label><br><br>
+  </label>
 
   <label>
-    Source Ports (fixed): 
+    Source Ports (fixed):
     <input type="text" value="65536" disabled>
-  </label><br><br>
+  </label>
 
   <label>
     Destination IPs:
-    <input type="range" id="destip" min="1" max="1000" value="1" oninput="updateDestIP(this.value)">
-    <span id="destipVal">1</span>
-  </label><br><br>
+    <span class="slider-value" id="destipVal">1</span>
+    <input type="range" id="destip" min="1" max="20000" value="1" oninput="updateDestIP(this.value)">
+  </label>
 
   <label>
     Destination Ports:
     <input type="number" id="port" value="1" min="1">
-  </label><br><br>
+  </label>
 
   <button onclick="calculate()">Calculate Max NAT Sessions</button>
 
-  <h3 id="result">Max NAT sessions: </h3>
+  <div id="result">Max NAT sessions: </div>
 
   <script>
     const SOURCE_PORTS = 65536;
